@@ -7,10 +7,10 @@ const commandValidator = (pattern, command) => {
   if (command.name !== pattern.name) {
     validationsErrors.push('Name are not equal to pattern name');
   }
-  if(command.value === undefined && pattern.value === true) {
+  if(command.value === undefined && pattern.value === 0) {
     validationsErrors.push('The value are missing');
   }
-  if(command.value !== undefined &&  pattern.value === false) {
+  if(command.value !== undefined && command.value.length !== pattern.value) {
     validationsErrors.push('Value should be empty');
   }
   pattern.params.forEach(item => {
@@ -25,7 +25,7 @@ const commandValidator = (pattern, command) => {
 
 export const commandMatcher = (COMMANDS, command) => {
   const params = parseArgs(command.match(/--\S+/g))
-  const [name, value] = command.replace(/--\S+\s*/g, '').trim().split(' ');
+  const [name, ...value] = command.replace(/--\S+\s*/g, '').trim().split(' ');
   const commandObject = { name, value, params, command};
 
   const commandPattern = COMMANDS.find(item => item.name === name);

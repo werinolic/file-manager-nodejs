@@ -5,7 +5,7 @@ import {ERROR} from "../../common/constants.js";
 
 export const cd = async (directory, command) => {
   const absolutePath = directory;
-  const relativePath = command.value;
+  const relativePath = command.value[0];
   const combinedPath = resolve(absolutePath, relativePath);
 
   try {
