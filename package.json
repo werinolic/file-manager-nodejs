@@ -1,0 +1,21 @@
+{
+  "name": "file-manager-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "start": "node main.js --username=pavel"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/werinolic/file-manager-nodejs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/werinolic/file-manager-nodejs/issues"
+  },
+  "homepage": "https://github.com/werinolic/file-manager-nodejs#readme"
+}
