@@ -1,25 +1,34 @@
+import { homedir } from 'node:os'
+
 import { parseArgs } from './modules/pars-args.js'
-import {logger} from "./modules/logger.js";
-import {commandMatcher} from "./modules/command-matcher.js";
-import {COMMANDS} from "./command-list.js";
+import { logger } from "./modules/logger.js";
+import { commandMatcher } from "./modules/command-matcher.js";
+import { commandRunner } from './modules/command-runner.js'
+import { COMMANDS } from "./command-list.js";
 
-export default (args, input, output) => {
-  const applicationSettings = parseArgs((args), ['username']);
+export default (process) => {
+  const {argv, stdin, stdout} = process;
+  let directory = homedir();
+  const applicationSettings = parseArgs((argv), ['username']);
   logger(`Welcome to the File Manager, ${applicationSettings.username}`);
+  logger(`${directory}: `);
 
-  input.on("readable", () => {
+  stdin.on("readable", async () => {
     let chunk;
-    while ((chunk = input.read()) !== null) {
+    while ((chunk = stdin.read()) !== null) {
       const command = commandMatcher(COMMANDS, chunk.toString())
-
       if (command !== null) {
-        output.write(`command: ${command.command}\n`);
-        output.write(`name: ${command.name}\n`);
-        output.write(`params: ${command.params}\n`);
-        output.write(`value: ${command.value}\n`);
-        output.write(`========================\n`);
+        const result = await commandRunner(directory, command);
+        directory = result.directory;
+        if(result.message) stdout.write(`\n${result.message}\n`);
       }
+      stdout.write(`${directory} `);
     }
   });
-  input.on("error", (err) => procteess.stderr.write(err.message));
+  stdin.on("error", (err) => procteess.stderr.write(err.message));
+
+  process.on('SIGINT', () => {
+    stdout.write(`\nThank you for using File Manager, ${applicationSettings.username}, goodbye!\n`);
+    process.exit(0);
+  });
 };

@@ -10,12 +10,16 @@ const commandValidator = (pattern, command) => {
   if(command.value === undefined && pattern.value === true) {
     validationsErrors.push('The value are missing');
   }
-  if(command.value !== '' &&  pattern.value === false) {
+  if(command.value !== undefined &&  pattern.value === false) {
     validationsErrors.push('Value should be empty');
   }
-  if(command.params.length !== pattern.params.length) {
-    validationsErrors.push('Required params are missing');
-  }
+  pattern.params.forEach(item => {
+    if (command.params[item] === undefined) {
+      const message = `Please, provide a "${item}" it's required parameter`
+      logger(message, ERROR);
+      throw message;
+    }
+  })
   return validationsErrors;
 }
 
@@ -32,8 +36,8 @@ export const commandMatcher = (COMMANDS, command) => {
 
   const validationErrors = commandValidator(commandPattern, commandObject)
   if(validationErrors.length !== 0){
-    logger(`command ${name} are not valid`, ERROR)
-    logger(validationErrors. join('; '), ERROR)
+    logger(validationErrors. join('; '), ERROR);
+    return null;
   }
 
   return commandObject;

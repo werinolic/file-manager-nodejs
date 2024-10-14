@@ -1,16 +1,21 @@
+export const UP = 'up';
+export const CD = 'cd';
+export const LS = 'ls';
+
+
 export const COMMANDS = [
   {
-    name: 'up',
+    name: UP,
     value: false,
     params: [],
   },
   {
-    name: 'ls',
+    name: LS,
     value: false,
     params: [],
   },
   {
-    name: 'cd',
+    name: CD,
     value: true,
     params: [],
   }
