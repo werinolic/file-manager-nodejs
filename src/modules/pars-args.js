@@ -7,12 +7,20 @@ const parseArgs =  (argv, listOfRequiredParams = []) => {
   if(argv) {
     argv.forEach((elem) => {
       if (elem.startsWith("--")) {
-        const pair = elem.slice(2).split('=')
-        if (pair.length === 2 && typeof pair[0] === "string" && typeof pair[1] === 'string') {
-          result[pair[0]] = pair[1];
+        if (elem.includes('=')) {
+          const pair = elem.slice(2).split('=')
+          if (pair.length === 2 && typeof pair[0] === "string" && typeof pair[1] === 'string') {
+            result[pair[0]] = pair[1];
+          } else {
+            logger('argv element is not valid', ERROR);
+          }
         } else {
-          const message = 'argv element is not valid';
-          logger(message, ERROR);
+          const key = elem.slice(2);
+          if (typeof key === "string") {
+            result[key] = key;
+          } else {
+            logger('argv element is not valid', ERROR);
+          }
         }
       }
     });

@@ -13,13 +13,12 @@ const commandValidator = (pattern, command) => {
   if(command.value !== undefined && command.value.length !== pattern.value) {
     validationsErrors.push('Value should be empty');
   }
-  pattern.params.forEach(item => {
-    if (command.params[item] === undefined) {
-      const message = `Please, provide a "${item}" it's required parameter`
+  for (const [key] of Object.entries(command.params)) {
+    if (!pattern.params.find(item => item === key)){
+      const message = `The param "${key}" is not supported`
       logger(message, ERROR);
-      throw message;
     }
-  })
+  };
   return validationsErrors;
 }
 

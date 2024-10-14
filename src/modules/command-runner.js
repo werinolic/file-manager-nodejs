@@ -1,4 +1,4 @@
-import {UP, LS, CD, CAT, ADD, RN, CP, MV, RM, HASH, COMPRESS, DECOMPRESS} from "../command-list.js";
+import {UP, LS, CD, CAT, ADD, RN, CP, MV, RM, HASH, COMPRESS, DECOMPRESS, OS} from "../command-list.js";
 import { up } from './commands/up.js';
 import { ls } from './commands/ls.js';
 import { cd } from './commands/cd.js';
@@ -11,6 +11,7 @@ import { rm } from "./commands/rm.js";
 import {hash} from "./commands/hash.js";
 import {compress} from "./commands/compress.js";
 import {decompress} from "./commands/decompress.js";
+import { os } from "./commands/os.js";
 
 const commandRunner = async (directory, command) => {
   switch (command.name) {
@@ -93,6 +94,13 @@ const commandRunner = async (directory, command) => {
     }
     case DECOMPRESS: {
       const message = await decompress(directory, command);
+      return {
+        message: message,
+        directory: directory,
+      }
+    }
+    case OS: {
+      const message = os(directory, command);
       return {
         message: message,
         directory: directory,

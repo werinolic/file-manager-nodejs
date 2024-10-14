@@ -10,6 +10,7 @@ export const RM = 'rm';
 export const HASH = 'hash';
 export const COMPRESS = 'compress';
 export const DECOMPRESS = 'decompress';
+export const OS = 'os';
 
 
 export const COMMANDS = [
@@ -72,5 +73,12 @@ export const COMMANDS = [
     name: DECOMPRESS,
     value: 2,
     params: [],
+  },
+  {
+    name: OS,
+    value: 0,
+    params: [
+      'EOL','cpus','homedir', 'username', 'architecture'
+    ],
   },
 ];
