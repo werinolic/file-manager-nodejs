@@ -13,7 +13,7 @@ export const cp = async (directory, command) => {
 
   try {
     await pipeline(readStream, writeStream);
-    logger(`File copied from "${oldFilePath}" to "${newFilePath}" successfully.`, MESSAGE);
+    return `File copied from "${oldFilePath}" to "${newFilePath}" successfully.`;
   } catch (error) {
     logger(`Error copying file: ${error.message}`, ERROR);
   }

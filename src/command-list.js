@@ -7,6 +7,9 @@ export const RN = 'rn';
 export const CP = 'cp';
 export const MV = 'mv';
 export const RM = 'rm';
+export const HASH = 'hash';
+export const COMPRESS = 'compress';
+export const DECOMPRESS = 'decompress';
 
 
 export const COMMANDS = [
@@ -53,6 +56,21 @@ export const COMMANDS = [
   {
     name: RM,
     value: 1,
+    params: [],
+  },
+  {
+    name: HASH,
+    value: 1,
+    params: [],
+  },
+  {
+    name: COMPRESS,
+    value: 2,
+    params: [],
+  },
+  {
+    name: DECOMPRESS,
+    value: 2,
     params: [],
   },
 ];

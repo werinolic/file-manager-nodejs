@@ -1,4 +1,4 @@
-import {UP, LS, CD, CAT, ADD, RN, CP, MV, RM} from "../command-list.js";
+import {UP, LS, CD, CAT, ADD, RN, CP, MV, RM, HASH, COMPRESS, DECOMPRESS} from "../command-list.js";
 import { up } from './commands/up.js';
 import { ls } from './commands/ls.js';
 import { cd } from './commands/cd.js';
@@ -8,6 +8,9 @@ import { rn } from "./commands/rn.js";
 import { cp } from "./commands/cp.js";
 import { mv } from "./commands/mv.js";
 import { rm } from "./commands/rm.js";
+import {hash} from "./commands/hash.js";
+import {compress} from "./commands/compress.js";
+import {decompress} from "./commands/decompress.js";
 
 const commandRunner = async (directory, command) => {
   switch (command.name) {
@@ -19,9 +22,9 @@ const commandRunner = async (directory, command) => {
       }
     }
     case LS: {
-      const listOfFiles = await ls(directory);
+      const message = await ls(directory);
       return {
-        message: listOfFiles,
+        message: message,
         directory: directory
       }
     }
@@ -54,23 +57,44 @@ const commandRunner = async (directory, command) => {
       }
     }
     case CP: {
-      await cp(directory, command);
+      const message = await cp(directory, command);
       return {
-        message: '',
+        message: message,
         directory: directory,
       }
     }
     case MV: {
-      await mv(directory, command);
+      const message = await mv(directory, command);
       return {
-        message: '',
+        message: message,
         directory: directory,
       }
     }
     case RM: {
-      await rm(directory, command);
+      const message = await rm(directory, command);
       return {
-        message: '',
+        message: message,
+        directory: directory,
+      }
+    }
+    case HASH: {
+      const message = await hash(directory, command);
+      return {
+        message: message,
+        directory: directory,
+      }
+    }
+    case COMPRESS: {
+      const message = await compress(directory, command);
+      return {
+        message: message,
+        directory: directory,
+      }
+    }
+    case DECOMPRESS: {
+      const message = await decompress(directory, command);
+      return {
+        message: message,
         directory: directory,
       }
     }

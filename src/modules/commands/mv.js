@@ -15,7 +15,7 @@ export const mv = async (directory, command) => {
   try {
     await pipeline(readStream, writeStream);
     await unlink(oldFilePath);
-    logger(`File moved from "${oldFilePath}" to "${newFilePath}" successfully.`, MESSAGE);
+    return `File moved from "${oldFilePath}" to "${newFilePath}" successfully.`;
   } catch (error) {
     logger(`Error moving file: ${error.message}`, ERROR);
   }
